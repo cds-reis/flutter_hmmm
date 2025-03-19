@@ -28,24 +28,17 @@ class ProjectConfigurationMapper extends ClassMapperBase<ProjectConfiguration> {
   static const Field<ProjectConfiguration, AdditionalModsPath>
       _f$additionalModsPath = Field('additionalModsPath', _$additionalModsPath,
           hook: ExistingDirectoryHook());
-  static CustomModsFolder _$customModsFolder(ProjectConfiguration v) =>
-      v.customModsFolder;
-  static const Field<ProjectConfiguration, CustomModsFolder>
-      _f$customModsFolder = Field('customModsFolder', _$customModsFolder,
-          hook: ExistingDirectoryHook());
 
   @override
   final MappableFields<ProjectConfiguration> fields = const {
     #gamePath: _f$gamePath,
     #additionalModsPath: _f$additionalModsPath,
-    #customModsFolder: _f$customModsFolder,
   };
 
   static ProjectConfiguration _instantiate(DecodingData data) {
     return ProjectConfiguration(
         gamePath: data.dec(_f$gamePath),
-        additionalModsPath: data.dec(_f$additionalModsPath),
-        customModsFolder: data.dec(_f$customModsFolder));
+        additionalModsPath: data.dec(_f$additionalModsPath));
   }
 
   @override

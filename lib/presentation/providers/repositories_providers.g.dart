@@ -6,8 +6,26 @@ part of 'repositories_providers.dart';
 // RiverpodGenerator
 // **************************************************************************
 
+String _$musicRepositoryHash() => r'15d8072be60493b8984f326713de0a0f6dd41624';
+
+/// See also [musicRepository].
+@ProviderFor(musicRepository)
+final musicRepositoryProvider = AutoDisposeProvider<MusicRepository>.internal(
+  musicRepository,
+  name: r'musicRepositoryProvider',
+  debugGetCreateSourceHash:
+      const bool.fromEnvironment('dart.vm.product')
+          ? null
+          : _$musicRepositoryHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+@Deprecated('Will be removed in 3.0. Use Ref instead')
+// ignore: unused_element
+typedef MusicRepositoryRef = AutoDisposeProviderRef<MusicRepository>;
 String _$hotlineMiamiModsRepositoryHash() =>
-    r'a1c99464832cd5581e9c1091f574911c42519276';
+    r'4ecdf9cc0663e67b47296b0397fa5d60cfa83f7f';
 
 /// See also [hotlineMiamiModsRepository].
 @ProviderFor(hotlineMiamiModsRepository)
@@ -28,7 +46,7 @@ final hotlineMiamiModsRepositoryProvider =
 typedef HotlineMiamiModsRepositoryRef =
     AutoDisposeProviderRef<HotlineMiamiModsRepository>;
 String _$projectConfigurationRepositoryHash() =>
-    r'40556ade388ed02302090748c3175d9c2fdd460d';
+    r'cd827f09b7afccdbba912ac127f445d875442d8e';
 
 /// See also [projectConfigurationRepository].
 @ProviderFor(projectConfigurationRepository)
@@ -48,24 +66,45 @@ final projectConfigurationRepositoryProvider =
 // ignore: unused_element
 typedef ProjectConfigurationRepositoryRef =
     AutoDisposeProviderRef<ProjectConfigurationRepository>;
-String _$sharedPrefsHash() => r'42342299aa172d58f15e1d8c0e2d33bef637fb2f';
+String _$additionalFilesRepositoryHash() =>
+    r'f124cb67796549da0e5a22f3fe5e735e51849190';
 
-/// See also [_sharedPrefs].
-@ProviderFor(_sharedPrefs)
-final _sharedPrefsProvider =
-    AutoDisposeProvider<SharedPreferencesAsync>.internal(
-      _sharedPrefs,
-      name: r'_sharedPrefsProvider',
+/// See also [additionalFilesRepository].
+@ProviderFor(additionalFilesRepository)
+final additionalFilesRepositoryProvider =
+    AutoDisposeProvider<AdditionalFilesRepository>.internal(
+      additionalFilesRepository,
+      name: r'additionalFilesRepositoryProvider',
       debugGetCreateSourceHash:
           const bool.fromEnvironment('dart.vm.product')
               ? null
-              : _$sharedPrefsHash,
+              : _$additionalFilesRepositoryHash,
       dependencies: null,
       allTransitiveDependencies: null,
     );
 
 @Deprecated('Will be removed in 3.0. Use Ref instead')
 // ignore: unused_element
-typedef _SharedPrefsRef = AutoDisposeProviderRef<SharedPreferencesAsync>;
+typedef AdditionalFilesRepositoryRef =
+    AutoDisposeProviderRef<AdditionalFilesRepository>;
+String _$sharedPreferencesHash() => r'7bd782904c963f7c877665475189292d8269c3f7';
+
+/// See also [sharedPreferences].
+@ProviderFor(sharedPreferences)
+final sharedPreferencesProvider =
+    AutoDisposeProvider<SharedPreferencesAsync>.internal(
+      sharedPreferences,
+      name: r'sharedPreferencesProvider',
+      debugGetCreateSourceHash:
+          const bool.fromEnvironment('dart.vm.product')
+              ? null
+              : _$sharedPreferencesHash,
+      dependencies: null,
+      allTransitiveDependencies: null,
+    );
+
+@Deprecated('Will be removed in 3.0. Use Ref instead')
+// ignore: unused_element
+typedef SharedPreferencesRef = AutoDisposeProviderRef<SharedPreferencesAsync>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

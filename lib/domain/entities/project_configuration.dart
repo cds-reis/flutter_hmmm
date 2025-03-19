@@ -17,7 +17,6 @@ class ProjectConfiguration with ProjectConfigurationMappable {
   const ProjectConfiguration({
     required this.gamePath,
     required this.additionalModsPath,
-    required this.customModsFolder,
   });
 
   @MappableField(hook: ExistingDirectoryHook())
@@ -25,9 +24,6 @@ class ProjectConfiguration with ProjectConfigurationMappable {
 
   @MappableField(hook: ExistingDirectoryHook())
   final AdditionalModsPath additionalModsPath;
-
-  @MappableField(hook: ExistingDirectoryHook())
-  final CustomModsFolder customModsFolder;
 
   static Either<DirectoryDoesNotExistException, ProjectConfiguration> create({
     required String gamePath,
@@ -41,14 +37,9 @@ class ProjectConfiguration with ProjectConfigurationMappable {
         AdditionalModsPath.parse(additionalModsPath),
       );
 
-      final existingCustomModsFolder = $(
-        CustomModsFolder.parse(customModsFolder),
-      );
-
       return ProjectConfiguration(
         gamePath: existingGamePath,
         additionalModsPath: existingAdditionalModsPath,
-        customModsFolder: existingCustomModsFolder,
       );
     });
   }

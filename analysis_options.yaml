@@ -7,6 +7,7 @@ linter:
     always_use_package_imports: false
     public_member_api_docs: false
     lines_longer_than_80_chars: false
+    one_member_abstracts: false
 
 analyzer:
   plugins:

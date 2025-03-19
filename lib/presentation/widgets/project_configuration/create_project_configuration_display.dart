@@ -1,27 +1,23 @@
 import 'package:animate_gradient/animate_gradient.dart';
 import 'package:flutter/material.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 
 import '../../../domain/entities/project_configuration.dart';
 import '../../hooks/use_text_editing_controller_with_state.dart';
 import '../utils/path_text_field.dart';
 import 'save_project_configuration_button.dart';
 
-class CreateProjectConfigurationDisplay extends HookConsumerWidget {
+class CreateProjectConfigurationDisplay extends HookWidget {
   const CreateProjectConfigurationDisplay({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget build(BuildContext context) {
     final gamePath = useTextEditingControllerWithState(
       transformer: GamePath.parse,
     );
 
     final additionalModsPath = useTextEditingControllerWithState(
       transformer: AdditionalModsPath.parse,
-    );
-
-    final customModsFolder = useTextEditingControllerWithState(
-      transformer: CustomModsFolder.parse,
     );
 
     return LayoutBuilder(
@@ -37,6 +33,7 @@ class CreateProjectConfigurationDisplay extends HookConsumerWidget {
               child: Column(
                 spacing: 32,
                 mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisSize: MainAxisSize.min,
                 children: [
                   PathTextField(
                     controller: gamePath.controller,
@@ -50,17 +47,11 @@ class CreateProjectConfigurationDisplay extends HookConsumerWidget {
                     helperText:
                         r'The folder you place the .patchwad files (C:\Users\$YourUser\Documents\My Games\HotlineMiami2\mods)',
                   ),
-                  PathTextField(
-                    controller: customModsFolder.controller,
-                    labelText: 'Custom Mods Folder',
-                    helperText: 'The folder you will store your custom mods',
-                  ),
                   Align(
                     alignment: Alignment.centerLeft,
                     child: SaveProjectConfigurationButton(
                       gamePath: gamePath,
                       additionalModsPath: additionalModsPath,
-                      customModsFolder: customModsFolder,
                     ),
                   ),
                 ],

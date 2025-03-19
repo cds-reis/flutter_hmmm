@@ -1,7 +1,7 @@
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../domain/entities/project_configuration.dart';
-import '../domain/repositories/project_configuration_repository.dart';
+import '../../domain/entities/project_configuration.dart';
+import '../../domain/repositories/project_configuration_repository.dart';
 
 const _projectConfigurationKey = 'projectConfiguration';
 

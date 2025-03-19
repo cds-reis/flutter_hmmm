@@ -20,68 +20,68 @@ class HotlineMiamiModMapper extends ClassMapperBase<HotlineMiamiMod> {
   @override
   final String id = 'HotlineMiamiMod';
 
-  static HotlineMiamiModName _$name(HotlineMiamiMod v) => v.name;
-  static const Field<HotlineMiamiMod, HotlineMiamiModName> _f$name =
-      Field('name', _$name);
-  static HotlineMiamiModPath _$path(HotlineMiamiMod v) => v.path;
-  static const Field<HotlineMiamiMod, HotlineMiamiModPath> _f$path =
-      Field('path', _$path);
-  static CustomModMusic? _$music(HotlineMiamiMod v) => v.music;
-  static const Field<HotlineMiamiMod, CustomModMusic> _f$music =
-      Field('music', _$music);
-  static List<AdditionalModFile> _$additionalFiles(HotlineMiamiMod v) =>
-      v.additionalFiles;
-  static const Field<HotlineMiamiMod, List<AdditionalModFile>>
-      _f$additionalFiles = Field('additionalFiles', _$additionalFiles);
+  static ModId _$id(HotlineMiamiMod v) => v.id;
+  static const Field<HotlineMiamiMod, ModId> _f$id = Field('id', _$id);
+  static ModName _$name(HotlineMiamiMod v) => v.name;
+  static const Field<HotlineMiamiMod, ModName> _f$name = Field('name', _$name);
+  static ModAuthor _$author(HotlineMiamiMod v) => v.author;
+  static const Field<HotlineMiamiMod, ModAuthor> _f$author =
+      Field('author', _$author);
+  static ModCover? _$cover(HotlineMiamiMod v) => v.cover;
+  static const Field<HotlineMiamiMod, ModCover> _f$cover =
+      Field('cover', _$cover);
+  static ModType _$type(HotlineMiamiMod v) => v.type;
+  static const Field<HotlineMiamiMod, ModType> _f$type = Field('type', _$type);
+  static ModDirectory _$directory(HotlineMiamiMod v) => v.directory;
+  static const Field<HotlineMiamiMod, ModDirectory> _f$directory =
+      Field('directory', _$directory);
+  static AdditionalFilesDirectory _$additionalFilesDirectory(
+          HotlineMiamiMod v) =>
+      v.additionalFilesDirectory;
+  static const Field<HotlineMiamiMod, AdditionalFilesDirectory>
+      _f$additionalFilesDirectory =
+      Field('additionalFilesDirectory', _$additionalFilesDirectory);
+  static IList<ModFile> _$files(HotlineMiamiMod v) => v.files;
+  static const Field<HotlineMiamiMod, IList<ModFile>> _f$files =
+      Field('files', _$files, opt: true, def: const IList.empty());
+  static ModMusic? _$music(HotlineMiamiMod v) => v.music;
+  static const Field<HotlineMiamiMod, ModMusic> _f$music =
+      Field('music', _$music, opt: true);
 
   @override
   final MappableFields<HotlineMiamiMod> fields = const {
+    #id: _f$id,
     #name: _f$name,
-    #path: _f$path,
+    #author: _f$author,
+    #cover: _f$cover,
+    #type: _f$type,
+    #directory: _f$directory,
+    #additionalFilesDirectory: _f$additionalFilesDirectory,
+    #files: _f$files,
     #music: _f$music,
-    #additionalFiles: _f$additionalFiles,
   };
 
   static HotlineMiamiMod _instantiate(DecodingData data) {
     return HotlineMiamiMod(
+        id: data.dec(_f$id),
         name: data.dec(_f$name),
-        path: data.dec(_f$path),
-        music: data.dec(_f$music),
-        additionalFiles: data.dec(_f$additionalFiles));
+        author: data.dec(_f$author),
+        cover: data.dec(_f$cover),
+        type: data.dec(_f$type),
+        directory: data.dec(_f$directory),
+        additionalFilesDirectory: data.dec(_f$additionalFilesDirectory),
+        files: data.dec(_f$files),
+        music: data.dec(_f$music));
   }
 
   @override
   final Function instantiate = _instantiate;
-
-  static HotlineMiamiMod fromMap(Map<String, dynamic> map) {
-    return ensureInitialized().decodeMap<HotlineMiamiMod>(map);
-  }
-
-  static HotlineMiamiMod fromJson(String json) {
-    return ensureInitialized().decodeJson<HotlineMiamiMod>(json);
-  }
 }
 
 mixin HotlineMiamiModMappable {
-  String toJson() {
-    return HotlineMiamiModMapper.ensureInitialized()
-        .encodeJson<HotlineMiamiMod>(this as HotlineMiamiMod);
-  }
-
-  Map<String, dynamic> toMap() {
-    return HotlineMiamiModMapper.ensureInitialized()
-        .encodeMap<HotlineMiamiMod>(this as HotlineMiamiMod);
-  }
-
   HotlineMiamiModCopyWith<HotlineMiamiMod, HotlineMiamiMod, HotlineMiamiMod>
       get copyWith => _HotlineMiamiModCopyWithImpl(
           this as HotlineMiamiMod, $identity, $identity);
-  @override
-  String toString() {
-    return HotlineMiamiModMapper.ensureInitialized()
-        .stringifyValue(this as HotlineMiamiMod);
-  }
-
   @override
   bool operator ==(Object other) {
     return HotlineMiamiModMapper.ensureInitialized()
@@ -103,14 +103,16 @@ extension HotlineMiamiModValueCopy<$R, $Out>
 
 abstract class HotlineMiamiModCopyWith<$R, $In extends HotlineMiamiMod, $Out>
     implements ClassCopyWith<$R, $In, $Out> {
-  ListCopyWith<$R, AdditionalModFile,
-          ObjectCopyWith<$R, AdditionalModFile, AdditionalModFile>>
-      get additionalFiles;
   $R call(
-      {HotlineMiamiModName? name,
-      HotlineMiamiModPath? path,
-      CustomModMusic? music,
-      List<AdditionalModFile>? additionalFiles});
+      {ModId? id,
+      ModName? name,
+      ModAuthor? author,
+      ModCover? cover,
+      ModType? type,
+      ModDirectory? directory,
+      AdditionalFilesDirectory? additionalFilesDirectory,
+      IList<ModFile>? files,
+      ModMusic? music});
   HotlineMiamiModCopyWith<$R2, $In, $Out2> $chain<$R2, $Out2>(
       Then<$Out2, $R2> t);
 }
@@ -124,30 +126,40 @@ class _HotlineMiamiModCopyWithImpl<$R, $Out>
   late final ClassMapperBase<HotlineMiamiMod> $mapper =
       HotlineMiamiModMapper.ensureInitialized();
   @override
-  ListCopyWith<$R, AdditionalModFile,
-          ObjectCopyWith<$R, AdditionalModFile, AdditionalModFile>>
-      get additionalFiles => ListCopyWith(
-          $value.additionalFiles,
-          (v, t) => ObjectCopyWith(v, $identity, t),
-          (v) => call(additionalFiles: v));
-  @override
   $R call(
-          {HotlineMiamiModName? name,
-          HotlineMiamiModPath? path,
-          Object? music = $none,
-          List<AdditionalModFile>? additionalFiles}) =>
+          {ModId? id,
+          ModName? name,
+          ModAuthor? author,
+          Object? cover = $none,
+          ModType? type,
+          ModDirectory? directory,
+          AdditionalFilesDirectory? additionalFilesDirectory,
+          IList<ModFile>? files,
+          Object? music = $none}) =>
       $apply(FieldCopyWithData({
+        if (id != null) #id: id,
         if (name != null) #name: name,
-        if (path != null) #path: path,
-        if (music != $none) #music: music,
-        if (additionalFiles != null) #additionalFiles: additionalFiles
+        if (author != null) #author: author,
+        if (cover != $none) #cover: cover,
+        if (type != null) #type: type,
+        if (directory != null) #directory: directory,
+        if (additionalFilesDirectory != null)
+          #additionalFilesDirectory: additionalFilesDirectory,
+        if (files != null) #files: files,
+        if (music != $none) #music: music
       }));
   @override
   HotlineMiamiMod $make(CopyWithData data) => HotlineMiamiMod(
+      id: data.get(#id, or: $value.id),
       name: data.get(#name, or: $value.name),
-      path: data.get(#path, or: $value.path),
-      music: data.get(#music, or: $value.music),
-      additionalFiles: data.get(#additionalFiles, or: $value.additionalFiles));
+      author: data.get(#author, or: $value.author),
+      cover: data.get(#cover, or: $value.cover),
+      type: data.get(#type, or: $value.type),
+      directory: data.get(#directory, or: $value.directory),
+      additionalFilesDirectory: data.get(#additionalFilesDirectory,
+          or: $value.additionalFilesDirectory),
+      files: data.get(#files, or: $value.files),
+      music: data.get(#music, or: $value.music));
 
   @override
   HotlineMiamiModCopyWith<$R2, HotlineMiamiMod, $Out2> $chain<$R2, $Out2>(
