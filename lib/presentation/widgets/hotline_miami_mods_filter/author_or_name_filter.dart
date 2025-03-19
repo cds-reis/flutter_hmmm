@@ -14,50 +14,54 @@ class AuthorOrNameFilter extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final groupValue = useState<AuthorOrNameFilterValue?>(null);
+    final _ = ref.watch(modAuthorFilterProvider);
+    final _ = ref.watch(modNameFilterProvider);
     final filterController = useTextEditingController();
+    final textFieldFocusNode = useFocusNode();
+
+    final fillColor = Theme.of(context).inputDecorationTheme.fillColor;
+    final textFieldBackgroundColor =
+        groupValue.value != null ? fillColor : fillColor?.withValues(alpha: .5);
 
     return Row(
+      spacing: 16,
       children: [
-        IconButton(
-          onPressed: () {
-            filterController.clear();
-            groupValue.value = null;
-            ref.read(modAuthorFilterProvider.notifier).clear();
-            ref.read(modNameFilterProvider.notifier).clear();
-          },
-          icon: const Icon(Icons.clear_sharp),
-        ),
-        IntrinsicWidth(
-          child: RadioListTile<AuthorOrNameFilterValue?>(
-            value: const Right(ModName('')),
-            groupValue: groupValue.value,
-            onChanged: (_) {
-              filterController.clear();
+        ChoiceChip(
+          label: const Text('Name'),
+          selected: groupValue.value?.isRight() ?? false,
+          onSelected: (selected) {
+            if (selected) {
               groupValue.value = const Right(ModName(''));
-              ref.read(modAuthorFilterProvider.notifier).clear();
-            },
-            title: Text('Name', style: Theme.of(context).textTheme.bodyMedium),
-          ),
+            } else {
+              groupValue.value = null;
+            }
+
+            _textFieldRequestFocus(textFieldFocusNode);
+
+            _clearFilter(filterController, ref);
+          },
         ),
-        IntrinsicWidth(
-          child: RadioListTile<AuthorOrNameFilterValue?>(
-            value: const Left(ModAuthor('')),
-            groupValue: groupValue.value,
-            onChanged: (_) {
-              filterController.clear();
+        ChoiceChip(
+          label: const Text('Author'),
+          selected: groupValue.value?.isLeft() ?? false,
+          onSelected: (selected) {
+            if (selected) {
               groupValue.value = const Left(ModAuthor(''));
-              ref.read(modNameFilterProvider.notifier).clear();
-            },
-            title: Text(
-              'Author',
-              style: Theme.of(context).textTheme.bodyMedium,
-            ),
-          ),
+            } else {
+              groupValue.value = null;
+            }
+
+            _textFieldRequestFocus(textFieldFocusNode);
+
+            _clearFilter(filterController, ref);
+          },
         ),
         Expanded(
           child: TextField(
+            focusNode: textFieldFocusNode,
             enabled: groupValue.value != null,
             controller: filterController,
+            decoration: InputDecoration(fillColor: textFieldBackgroundColor),
             onChanged: (value) {
               switch (groupValue.value) {
                 case Left():
@@ -76,4 +80,16 @@ class AuthorOrNameFilter extends HookConsumerWidget {
       ],
     );
   }
+}
+
+void _textFieldRequestFocus(FocusNode textFieldFocusNode) {
+  WidgetsBinding.instance.addPostFrameCallback(
+    (_) => textFieldFocusNode.requestFocus(),
+  );
+}
+
+void _clearFilter(TextEditingController filterController, WidgetRef ref) {
+  filterController.clear();
+  ref.read(modAuthorFilterProvider.notifier).clear();
+  ref.read(modNameFilterProvider.notifier).clear();
 }

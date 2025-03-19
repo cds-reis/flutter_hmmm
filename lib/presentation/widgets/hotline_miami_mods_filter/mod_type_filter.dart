@@ -23,12 +23,11 @@ class ModTypeFilter extends ConsumerWidget {
         clearable: true,
         itemBuilder: (state, index) {
           final modType = ModType.values[index];
+
           return ChoiceChip(
-            shape: const RoundedRectangleBorder(),
-            avatarBorder: const RoundedRectangleBorder(),
             label: Text(modType.name),
             selected: state.selected(modType),
-            onSelected: (selected) {
+            onSelected: (_) {
               state.select(modType);
             },
           );

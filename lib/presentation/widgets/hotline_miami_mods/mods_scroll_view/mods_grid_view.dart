@@ -19,7 +19,7 @@ class ModsGridView extends StatelessWidget {
       itemBuilder: (_, index) {
         final realIndex = index * 2;
         return Row(
-          spacing: 16,
+          spacing: 24,
           children: [
             Flexible(flex: 5, child: ModItemDisplay(mod: mods[realIndex])),
             if (realIndex + 1 < mods.length)

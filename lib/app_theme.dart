@@ -18,6 +18,7 @@ ThemeData buildAppTheme() {
         shape: RoundedRectangleBorder(),
       ),
     ),
+    chipTheme: const ChipThemeData(shape: RoundedRectangleBorder()),
     inputDecorationTheme: InputDecorationTheme(
       border: outlineInputBorder,
       alignLabelWithHint: true,

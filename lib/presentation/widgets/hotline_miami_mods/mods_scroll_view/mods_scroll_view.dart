@@ -5,7 +5,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../../../domain/entities/hotline_miami_mod.dart';
 import '../../../providers/mods_filter_provider.dart';
-import '../../../widgets/hotline_miami_mods_filter/mods_filter_display.dart';
+import '../hotline_miami_app_bar.dart';
 import 'mods_grid_view.dart';
 import 'mods_list_view.dart';
 
@@ -21,7 +21,7 @@ class ModsScrollView extends ConsumerWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const ModsFilterDisplay(),
+        const HotlineMiamiAppBar(),
         Expanded(
           child: AnimateGradient(
             primaryColors: const [Colors.purple, Colors.deepPurple],
