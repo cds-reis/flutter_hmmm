@@ -1,14 +1,13 @@
 // ignore_for_file: require_trailing_commas //
 
 import 'package:flutter/material.dart';
-import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../project_configuration/gradient_enabled_button.dart';
 
 typedef GradientStep = ({Color begin, Color end});
 
-class CustomAnimatedGradient extends HookConsumerWidget {
+class CustomAnimatedGradient extends StatefulWidget {
   const CustomAnimatedGradient({
     required this.gradientSteps,
     required this.child,
@@ -32,74 +31,117 @@ class CustomAnimatedGradient extends HookConsumerWidget {
   final Alignment end;
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final animationController = useAnimationController(duration: duration);
-    final enabled = ref.watch(gradientAnimationProvider);
+  State<CustomAnimatedGradient> createState() => _CustomAnimatedGradientState();
+}
 
-    useEffect(() {
-      if (enabled) {
-        animationController.repeat(reverse: reverse);
-      } else {
-        animationController.stop();
-      }
+class _CustomAnimatedGradientState extends State<CustomAnimatedGradient>
+    with SingleTickerProviderStateMixin {
+  late AnimationController _controller;
+  late Animation<Color?> _firstColorAnimation;
+  late Animation<Color?> _secondColorAnimation;
 
-      return animationController.stop;
-    }, [enabled]);
+  @override
+  void initState() {
+    super.initState();
+    _controller = AnimationController(duration: widget.duration, vsync: this);
 
-    if (!enabled) {
-      return DecoratedBox(
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-            begin: begin,
-            end: end,
-            colors: [gradientSteps.first.begin, gradientSteps.first.end],
-          ),
-        ),
-        child: child,
-      );
-    }
+    _setupAnimations();
+  }
 
+  void _setupAnimations() {
     final firstColors = <TweenSequenceItem<Color?>>[];
     final secondColors = <TweenSequenceItem<Color?>>[];
 
-    for (var i = 1; i < gradientSteps.length; i++) {
-      final step = gradientSteps[i - 1];
-      final nextStep = gradientSteps[i];
+    for (var i = 1; i < widget.gradientSteps.length; i++) {
+      final step = widget.gradientSteps[i - 1];
+      final nextStep = widget.gradientSteps[i];
 
-      final firstTween = ColorTween(begin: step.begin, end: nextStep.begin);
-      final secondTween = ColorTween(begin: step.end, end: nextStep.end);
-
-      final firstItem = TweenSequenceItem(tween: firstTween, weight: 1);
-      final secondItem = TweenSequenceItem(tween: secondTween, weight: 1);
-
-      firstColors.add(firstItem);
-      secondColors.add(secondItem);
+      firstColors.add(
+        TweenSequenceItem(
+          tween: ColorTween(begin: step.begin, end: nextStep.begin),
+          weight: 1,
+        ),
+      );
+      secondColors.add(
+        TweenSequenceItem(
+          tween: ColorTween(begin: step.end, end: nextStep.end),
+          weight: 1,
+        ),
+      );
     }
 
-    final firstColor = useAnimation(
-      TweenSequence<Color?>(
-        firstColors,
-      ).animate(CurvedAnimation(parent: animationController, curve: curve)),
-    );
+    _firstColorAnimation = TweenSequence<Color?>(
+      firstColors,
+    ).animate(CurvedAnimation(parent: _controller, curve: widget.curve));
+    _secondColorAnimation = TweenSequence<Color?>(
+      secondColors,
+    ).animate(CurvedAnimation(parent: _controller, curve: widget.curve));
+  }
 
-    final secondColor = useAnimation(
-      TweenSequence<Color?>(
-        secondColors,
-      ).animate(CurvedAnimation(parent: animationController, curve: curve)),
-    );
+  @override
+  void didUpdateWidget(CustomAnimatedGradient oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (oldWidget.gradientSteps != widget.gradientSteps ||
+        oldWidget.duration != widget.duration ||
+        oldWidget.curve != widget.curve) {
+      _setupAnimations();
+    }
+  }
 
-    return DecoratedBox(
-      decoration: BoxDecoration(
-        gradient: LinearGradient(
-          begin: begin,
-          end: end,
-          colors: [
-            firstColor ?? Colors.transparent,
-            secondColor ?? Colors.transparent,
-          ],
-        ),
-      ),
-      child: child,
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Consumer(
+      builder: (context, ref, child) {
+        final enabled = ref.watch(gradientAnimationProvider);
+
+        if (enabled && !_controller.isAnimating) {
+          _controller.repeat(reverse: widget.reverse);
+        } else if (!enabled && _controller.isAnimating) {
+          _controller.stop();
+        }
+
+        if (!enabled) {
+          return DecoratedBox(
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                begin: widget.begin,
+                end: widget.end,
+                colors: [
+                  widget.gradientSteps.first.begin,
+                  widget.gradientSteps.first.end,
+                ],
+              ),
+            ),
+            child: widget.child,
+          );
+        }
+
+        return AnimatedBuilder(
+          animation: _controller,
+          builder: (context, child) {
+            return DecoratedBox(
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  begin: widget.begin,
+                  end: widget.end,
+                  colors: [
+                    _firstColorAnimation.value ?? Colors.transparent,
+                    _secondColorAnimation.value ?? Colors.transparent,
+                  ],
+                ),
+              ),
+              child: child,
+            );
+          },
+          child: widget.child,
+        );
+      },
     );
   }
 }
