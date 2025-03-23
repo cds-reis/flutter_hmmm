@@ -87,7 +87,7 @@ final additionalFilesRepositoryProvider =
 // ignore: unused_element
 typedef AdditionalFilesRepositoryRef =
     AutoDisposeProviderRef<AdditionalFilesRepository>;
-String _$sharedPreferencesHash() => r'7bd782904c963f7c877665475189292d8269c3f7';
+String _$sharedPreferencesHash() => r'80f9dbcfa060359e5c151d034b7dd8e98d4f03af';
 
 /// See also [sharedPreferences].
 @ProviderFor(sharedPreferences)

@@ -32,7 +32,7 @@ class FileSystemAdditionalFilesRepository implements AdditionalFilesRepository {
 
     final musicFile = await _getMusicFile(modDir);
 
-    _talker.info('Music file: $musicFile');
+    _talker.verbose('Music file: $musicFile');
 
     return musicFile.map(ModMusic.new).toNullable();
   }
@@ -61,10 +61,10 @@ class FileSystemAdditionalFilesRepository implements AdditionalFilesRepository {
       await modDir.create();
     }
 
-    _talker.info('Music file: ${newMusic.name}');
+    _talker.verbose('Music file: ${newMusic.name}');
 
     final musicFile = File(p.join(modDir.path, 'music', newMusic.name));
-    _talker.info('Music file path: ${musicFile.path}');
+    _talker.verbose('Music file path: ${musicFile.path}');
     await musicFile.writeAsBytes(await newMusic.readAsBytes());
 
     return ModMusic(musicFile);
@@ -88,9 +88,9 @@ class FileSystemAdditionalFilesRepository implements AdditionalFilesRepository {
 
   Future<Directory> getModDir(ModId id) async {
     final appSupportDir = await path_provider.getApplicationSupportDirectory();
-    _talker.info('App support directory: ${appSupportDir.path}');
+    _talker.verbose('App support directory: ${appSupportDir.path}');
     final modDir = Directory(p.join(appSupportDir.path, id.value));
-    _talker.info('Mod directory: ${modDir.path}');
+    _talker.verbose('Mod directory: ${modDir.path}');
     return modDir;
   }
 
@@ -102,7 +102,7 @@ class FileSystemAdditionalFilesRepository implements AdditionalFilesRepository {
   @override
   Future<IList<ModFile>> getModFiles(ModId id) async {
     final modDir = await getModDir(id);
-    _talker.info('Mod directory: ${modDir.path}');
+    _talker.verbose('Mod directory: ${modDir.path}');
 
     if (!modDir.existsSync()) {
       _talker.info('Mod directory does not exist, creating it');
@@ -122,7 +122,7 @@ class FileSystemAdditionalFilesRepository implements AdditionalFilesRepository {
     final modDir = await getModDir(id);
 
     if (!modDir.existsSync()) {
-      _talker.verbose('Mod directory for $id does not exist, creating it');
+      _talker.info('Mod directory for $id does not exist, creating it');
       await modDir.create();
     }
 

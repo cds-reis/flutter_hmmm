@@ -30,7 +30,7 @@ class RemoveMusicButton extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final animationController = useAnimationController(
-      duration: const Duration(seconds: 3),
+      duration: const Duration(seconds: 2),
     );
 
     useEffectOnce(() {
@@ -41,7 +41,7 @@ class RemoveMusicButton extends HookConsumerWidget {
     final animation = useAnimation(
       ColorTween(
         begin: Colors.red.shade400,
-        end: Colors.red.shade800,
+        end: Colors.red.shade900,
       ).animate(animationController),
     );
 

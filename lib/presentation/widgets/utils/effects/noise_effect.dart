@@ -1,8 +1,11 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-class NoiseEffect extends StatefulWidget {
+import '../../project_configuration/noise_effect_enabled_button.dart';
+
+class NoiseEffect extends ConsumerWidget {
   const NoiseEffect({
     required this.child,
     super.key,
@@ -17,46 +20,19 @@ class NoiseEffect extends StatefulWidget {
   final double opacity;
 
   @override
-  State<NoiseEffect> createState() => _NoiseEffectState();
-}
-
-class _NoiseEffectState extends State<NoiseEffect>
-    with SingleTickerProviderStateMixin {
-  late AnimationController _controller;
-
-  @override
-  void initState() {
-    super.initState();
-    _controller = AnimationController(
-      vsync: this,
-      duration: const Duration(milliseconds: 50),
-    )..repeat();
-  }
-
-  @override
-  void dispose() {
-    _controller.dispose();
-    super.dispose();
-  }
-
-  @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return Stack(
       children: [
-        widget.child,
+        child,
         Positioned.fill(
           child: IgnorePointer(
-            child: AnimatedBuilder(
-              animation: _controller,
-              builder: (context, _) {
-                return CustomPaint(
-                  painter: NoisePainter(
-                    color: widget.color,
-                    density: widget.density,
-                    opacity: widget.opacity,
-                  ),
-                );
-              },
+            child: CustomPaint(
+              painter: NoisePainter(
+                color: color,
+                density: density,
+                opacity: opacity,
+                enabled: ref.watch(noiseEffectEnabledProvider),
+              ),
             ),
           ),
         ),
@@ -70,21 +46,25 @@ class NoisePainter extends CustomPainter {
     this.density = 0.1, // 10% of pixels by default
     this.color = Colors.black,
     this.opacity = 1,
+    this.enabled = true,
   });
 
   final double density; // Controls how many noise pixels to draw
   final Color color; // Color of the noise
   final double opacity;
+  final bool enabled;
 
   @override
   void paint(Canvas canvas, Size size) {
+    if (!enabled) return;
+
     final random = Random();
     final paint =
         Paint()
           ..color = color.withValues(alpha: opacity)
           ..strokeWidth = 1;
 
-    const pixelSize = 1.0; // Size of each noise pixel
+    const pixelSize = 1.0;
     final numberOfPixels = (size.width * size.height * density).toInt();
 
     for (var i = 0; i < numberOfPixels; i++) {
@@ -97,6 +77,6 @@ class NoisePainter extends CustomPainter {
 
   @override
   bool shouldRepaint(NoisePainter oldDelegate) {
-    return true; // Always repaint to get different noise pattern
+    return enabled;
   }
 }

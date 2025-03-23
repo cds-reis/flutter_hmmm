@@ -57,7 +57,7 @@ class _ModItemDisplayTextState extends State<ModItemDisplayText>
   Widget build(BuildContext context) {
     return AnimatedBuilder(
       animation: _colorAnimation,
-      builder: (context, snapshot) {
+      builder: (context, _) {
         return Expanded(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,

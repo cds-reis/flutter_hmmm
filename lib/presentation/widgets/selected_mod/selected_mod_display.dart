@@ -1,12 +1,12 @@
-import 'package:animate_gradient/animate_gradient.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../providers/selected_mod_provider.dart';
 import '../current_mod/current_mod_display.dart';
+import '../favorite_mods/favorite_mod_button.dart';
+import '../utils/animations/custom_animated_gradient.dart';
 import '../utils/effects/noise_effect.dart';
-import 'add_to_favorites_button.dart';
 import 'additional_mods/additional_mods_display.dart';
 import 'selected_mod_display_text.dart';
 import 'selected_mod_image.dart';
@@ -42,9 +42,17 @@ class SelectedModDisplay extends ConsumerWidget {
                 children: [
                   const CurrentModDisplay(),
                   const Gap(16),
-                  AnimateGradient(
-                    primaryColors: const [Colors.indigo, Colors.purple],
-                    secondaryColors: const [Colors.indigoAccent, Colors.pink],
+                  CustomAnimatedGradient(
+                    gradientSteps: const [
+                      (begin: Colors.indigo, end: Colors.purple),
+                      (
+                        begin: Colors.indigoAccent,
+                        end: Colors.deepPurpleAccent,
+                      ),
+                      (begin: Colors.cyan, end: Colors.pink),
+                    ],
+
+                    duration: const Duration(seconds: 6),
                     child: NoiseEffect(
                       child: Padding(
                         padding: const EdgeInsets.all(32),
@@ -78,7 +86,7 @@ class SelectedModDisplay extends ConsumerWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           UseThisModButton(mod: selectedMod),
-                          const AddToFavoritesButton(),
+                          FavoriteModButton(mod: selectedMod),
                         ],
                       );
                     },

@@ -4,6 +4,8 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../../domain/entities/hotline_miami_mod.dart';
+import '../widgets/favorite_mods/favorite_mods_filter.dart';
+import '../widgets/favorite_mods/favorite_mods_provider.dart';
 import 'global_providers.dart';
 
 part 'mods_filter_provider.g.dart';
@@ -13,6 +15,7 @@ IList<HotlineMiamiMod> modsFilter(Ref ref, IList<HotlineMiamiMod> mods) {
   final authorFilter = ref.watch(modAuthorFilterProvider);
   final nameFilter = ref.watch(modNameFilterProvider);
   final typeFilter = ref.watch(modTypeFilterProvider);
+  final favoriteModsFilter = ref.watch(favoriteModsFilterProvider);
 
   ref.watch(talkerProvider).info('Amount of mods recieved: ${mods.length}');
 
@@ -21,6 +24,10 @@ IList<HotlineMiamiMod> modsFilter(Ref ref, IList<HotlineMiamiMod> mods) {
           .where((mod) => _authorFilterPredicate(mod, authorFilter))
           .where((mod) => _nameFilterPredicate(mod, nameFilter))
           .where((mod) => _typeFilterPredicate(mod, typeFilter))
+          .where((mod) {
+            return !favoriteModsFilter ||
+                ref.watch(favoriteModsProvider).contains(mod.id);
+          })
           .toIList();
 
   ref

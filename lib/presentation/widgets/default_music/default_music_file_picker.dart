@@ -1,10 +1,10 @@
-import 'package:animate_gradient/animate_gradient.dart';
 import 'package:file_selector/file_selector.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../providers/default_music_provider.dart';
 import '../../providers/project_configuration_provider.dart';
+import '../utils/animations/custom_animated_gradient.dart';
 
 class DefaultMusicFilePicker extends ConsumerWidget {
   const DefaultMusicFilePicker({super.key});
@@ -15,9 +15,11 @@ class DefaultMusicFilePicker extends ConsumerWidget {
       builder: (context, constraints) {
         return SizedBox(
           width: constraints.maxWidth * .50,
-          child: AnimateGradient(
-            primaryColors: const [Colors.pinkAccent, Colors.purpleAccent],
-            secondaryColors: const [Colors.greenAccent, Colors.blue],
+          child: CustomAnimatedGradient(
+            gradientSteps: const [
+              (begin: Colors.pinkAccent, end: Colors.purpleAccent),
+              (begin: Colors.greenAccent, end: Colors.blue),
+            ],
             duration: const Duration(seconds: 6),
             child: Padding(
               padding: const EdgeInsets.all(24),

@@ -10,7 +10,18 @@ ThemeData buildAppTheme() {
   const textShadow = BoxShadow(offset: Offset(2, 2));
 
   return ThemeData(
-    colorScheme: const ColorScheme.dark(),
+    colorScheme: const ColorScheme.dark(primary: Colors.pinkAccent),
+    switchTheme: const SwitchThemeData(
+      trackColor: WidgetStateProperty.fromMap({
+        WidgetState.selected: Colors.cyan,
+        WidgetState.any: Colors.black,
+      }),
+      trackOutlineColor: WidgetStateColor.fromMap({
+        WidgetState.selected: Colors.black,
+        WidgetState.any: Colors.cyan,
+      }),
+      trackOutlineWidth: WidgetStatePropertyAll(3),
+    ),
     fontFamily: 'Retro Computer',
     dialogTheme: const DialogTheme(
       data: DialogThemeData(
@@ -68,16 +79,20 @@ ThemeData buildAppTheme() {
         }),
       ),
     ),
-    elevatedButtonTheme: ElevatedButtonThemeData(
+    elevatedButtonTheme: const ElevatedButtonThemeData(
       style: ButtonStyle(
-        backgroundColor: const WidgetStateColor.fromMap({
+        backgroundColor: WidgetStateColor.fromMap({
           WidgetState.hovered: Colors.pinkAccent,
           WidgetState.any: fillColor,
         }),
-        padding: const WidgetStatePropertyAll(EdgeInsets.all(16)),
-        shape: WidgetStateProperty.all(
-          RoundedRectangleBorder(borderRadius: BorderRadius.circular(0)),
-        ),
+        padding: WidgetStatePropertyAll(EdgeInsets.all(16)),
+        shape: WidgetStatePropertyAll(RoundedRectangleBorder()),
+      ),
+    ),
+    iconButtonTheme: IconButtonThemeData(
+      style: IconButton.styleFrom(
+        backgroundColor: Colors.black,
+        shape: const RoundedRectangleBorder(side: BorderSide(width: 4)),
       ),
     ),
   );

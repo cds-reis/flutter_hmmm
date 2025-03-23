@@ -17,20 +17,29 @@ class AddMusic extends StatelessWidget {
 
     return SizedBox(
       height: 48,
-      child: Wrap(
-        runAlignment: WrapAlignment.center,
-        crossAxisAlignment: WrapCrossAlignment.center,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         spacing: 8,
-        runSpacing: 8,
         children: [
           AddMusicButton(mod: mod),
-          Text(
-            Option.fromNullable(
-              mod.music?.path,
-            ).map(p.basename).getOrElse(() => 'No music'),
-            style: Theme.of(context).textTheme.bodySmall,
+          Expanded(
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              spacing: 8,
+              children: [
+                Expanded(
+                  child: Text(
+                    Option.fromNullable(
+                      mod.music?.path,
+                    ).map(p.basename).getOrElse(() => 'No music'),
+                    style: Theme.of(context).textTheme.bodySmall,
+                    textAlign: TextAlign.end,
+                  ),
+                ),
+                if (music != null) ...[RemoveMusicButton(mod: mod)],
+              ],
+            ),
           ),
-          if (music != null) ...[RemoveMusicButton(mod: mod)],
         ],
       ),
     );

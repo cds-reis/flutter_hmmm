@@ -1,4 +1,3 @@
-import 'package:animate_gradient/animate_gradient.dart';
 import 'package:cross_file/cross_file.dart';
 import 'package:desktop_drop/desktop_drop.dart';
 import 'package:fast_immutable_collections/fast_immutable_collections.dart';
@@ -10,6 +9,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import '../../../../../data/services/selected_files_parsing_service.dart';
 import '../../../../providers/selected_mod_provider.dart';
 import '../../../../providers/services_providers.dart';
+import '../../../utils/animations/custom_animated_gradient.dart';
 import '../../../utils/dialogs/show_wrong_file_type_dialog.dart';
 import 'mod_files_drop_target.dart';
 
@@ -20,9 +20,11 @@ class CustomDropTarget extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return AnimateGradient(
-      primaryColors: [Colors.greenAccent, Colors.green.shade600],
-      secondaryColors: [Colors.blue.shade400, Colors.indigo],
+    return CustomAnimatedGradient(
+      gradientSteps: [
+        (begin: Colors.greenAccent, end: Colors.green.shade600),
+        (begin: Colors.blue.shade400, end: Colors.indigo),
+      ],
       duration: const Duration(seconds: 5),
       child: HookConsumer(
         child: child,

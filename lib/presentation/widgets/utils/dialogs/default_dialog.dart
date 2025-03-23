@@ -1,5 +1,6 @@
-import 'package:animate_gradient/animate_gradient.dart';
 import 'package:flutter/material.dart';
+
+import '../animations/custom_animated_gradient.dart';
 
 class DefaultDialog extends StatelessWidget {
   const DefaultDialog({required this.child, super.key});
@@ -10,13 +11,12 @@ class DefaultDialog extends StatelessWidget {
   Widget build(BuildContext context) {
     return AlertDialog(
       contentPadding: const EdgeInsets.all(8),
-      content: AnimateGradient(
-        primaryColors: const [
-          Colors.lightGreen,
-          Colors.greenAccent,
-          Colors.indigoAccent,
+      content: CustomAnimatedGradient(
+        gradientSteps: const [
+          (begin: Colors.lightGreen, end: Colors.purple),
+          (begin: Colors.greenAccent, end: Colors.deepPurple),
+          (begin: Colors.indigoAccent, end: Colors.cyan),
         ],
-        secondaryColors: const [Colors.purple, Colors.deepPurple, Colors.cyan],
         duration: const Duration(seconds: 3, milliseconds: 500),
         child: Padding(
           padding: const EdgeInsets.all(16),

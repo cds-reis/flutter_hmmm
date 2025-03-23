@@ -41,4 +41,6 @@ AdditionalFilesRepository additionalFilesRepository(Ref ref) {
 }
 
 @riverpod
-SharedPreferencesAsync sharedPreferences(Ref _) => SharedPreferencesAsync();
+SharedPreferencesAsync sharedPreferences(Ref _) {
+  return SharedPreferencesAsync();
+}
