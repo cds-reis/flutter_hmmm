@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_hooks/flutter_hooks.dart';
 
-import '../../../hooks/use_effect_once.dart';
-
-class AnimatedColorText extends HookWidget {
+class AnimatedColorText extends StatefulWidget {
   const AnimatedColorText({
     required this.text,
     required this.colors,
@@ -20,37 +17,72 @@ class AnimatedColorText extends HookWidget {
   final Curve curve;
 
   @override
-  Widget build(BuildContext context) {
-    final controller = useAnimationController(duration: duration);
+  State<AnimatedColorText> createState() => _AnimatedColorTextState();
+}
 
-    useEffectOnce(() {
-      controller.repeat(reverse: true);
-      return null;
-    });
+class _AnimatedColorTextState extends State<AnimatedColorText>
+    with SingleTickerProviderStateMixin {
+  late final AnimationController _controller;
+  late Animation<Color?> _colorAnimation;
 
+  @override
+  void initState() {
+    super.initState();
+    _controller = AnimationController(duration: widget.duration, vsync: this);
+    _setupAnimation();
+    _controller.repeat(reverse: true);
+  }
+
+  void _setupAnimation() {
     final items = <TweenSequenceItem<Color?>>[];
 
-    for (var i = 1; i < colors.length; i++) {
-      final color = colors[i - 1];
-      final nextColor = colors[i];
+    for (var i = 1; i < widget.colors.length; i++) {
+      final color = widget.colors[i - 1];
+      final nextColor = widget.colors[i];
 
-      final tween = ColorTween(begin: color, end: nextColor);
-      final item = TweenSequenceItem(tween: tween, weight: 1);
-
-      items.add(item);
+      items.add(
+        TweenSequenceItem(
+          tween: ColorTween(begin: color, end: nextColor),
+          weight: 1,
+        ),
+      );
     }
 
-    final color = useAnimation(
-      TweenSequence<Color?>(
-        items,
-      ).animate(CurvedAnimation(parent: controller, curve: curve)),
-    );
+    _colorAnimation = TweenSequence<Color?>(
+      items,
+    ).animate(CurvedAnimation(parent: _controller, curve: widget.curve));
+  }
 
-    return Text(
-      text,
-      style: switch (style) {
-        null => TextStyle(color: color),
-        final TextStyle style => style.copyWith(color: color),
+  @override
+  void didUpdateWidget(AnimatedColorText oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (oldWidget.colors != widget.colors ||
+        oldWidget.duration != widget.duration ||
+        oldWidget.curve != widget.curve) {
+      _setupAnimation();
+    }
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return AnimatedBuilder(
+      animation: _controller,
+      builder: (context, _) {
+        return Text(
+          widget.text,
+          style: switch (widget.style) {
+            null => TextStyle(color: _colorAnimation.value),
+            final TextStyle style => style.copyWith(
+              color: _colorAnimation.value,
+            ),
+          },
+        );
       },
     );
   }

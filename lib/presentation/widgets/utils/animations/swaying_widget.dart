@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_hooks/flutter_hooks.dart';
 
-import '../../../hooks/use_effect_once.dart';
-
-class SwayingWidget extends HookWidget {
+class SwayingWidget extends StatefulWidget {
   const SwayingWidget({
     required this.child,
     super.key,
@@ -18,21 +15,39 @@ class SwayingWidget extends HookWidget {
   final double angle;
 
   @override
+  State<SwayingWidget> createState() => _SwayingWidgetState();
+}
+
+class _SwayingWidgetState extends State<SwayingWidget>
+    with SingleTickerProviderStateMixin {
+  late final AnimationController _controller;
+  late final Animation<double> _animation;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = AnimationController(duration: widget.duration, vsync: this);
+    _animation = Tween<double>(
+      begin: -widget.angle - widget.angle,
+      end: -widget.angle,
+    ).animate(CurvedAnimation(parent: _controller, curve: Curves.easeInOut));
+    _controller.repeat(reverse: true);
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    final controller = useAnimationController(duration: duration);
-
-    useEffectOnce(() {
-      controller.repeat(reverse: true);
-      return null;
-    });
-
-    final animation = useAnimation(
-      Tween<double>(
-        begin: -angle - angle,
-        end: -angle,
-      ).animate(CurvedAnimation(parent: controller, curve: Curves.easeInOut)),
+    return AnimatedBuilder(
+      animation: _animation,
+      builder: (context, child) {
+        return Transform.rotate(angle: _animation.value, child: child);
+      },
+      child: widget.child,
     );
-
-    return Transform.rotate(angle: animation, child: child);
   }
 }
