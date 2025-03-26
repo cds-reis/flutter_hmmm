@@ -7,12 +7,18 @@ import 'package:leak_tracker/leak_tracker.dart';
 import 'package:talker_riverpod_logger/talker_riverpod_logger.dart';
 
 import 'app_theme.dart';
+import 'eager_providers_initializer.dart';
 import 'presentation/providers/global_providers.dart';
 import 'presentation/widgets/project_configuration/project_configuration_display.dart';
 
 void main() {
   runZonedGuarded(() {
-    LeakTracking.start();
+    LeakTracking.start(
+      config: LeakTrackingConfig(
+        onLeaks: (leakSummary) => globalTalker.debug(leakSummary.toMessage()),
+      ),
+    );
+
     FlutterMemoryAllocations.instance.addListener(
       (event) => LeakTracking.dispatchObjectEvent(event.toMap()),
     );
@@ -27,7 +33,7 @@ void main() {
             ),
           ),
         ],
-        child: const MainApp(),
+        child: const EagerProvidersInitializer(child: MainApp()),
       ),
     );
     // ignore: require_trailing_commas //

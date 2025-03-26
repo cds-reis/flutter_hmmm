@@ -8,7 +8,7 @@ part 'favorite_mods_provider.g.dart';
 
 const _favoriteModsKey = 'favoriteMods';
 
-@riverpod
+@Riverpod(keepAlive: true)
 class FavoriteMods extends _$FavoriteMods {
   @override
   ISet<ModId> build() {
