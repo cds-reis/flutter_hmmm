@@ -76,3 +76,7 @@ If you want to contribute to the project, feel free to fork the repository and c
 ## License
 
 This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
+
+## Special thanks to u/ORBC0RP for providing the icon and art for the program
+
+![Project Art](./docs/assets/logo2.png)
