@@ -17,7 +17,7 @@ class ProjectConfigurationDisplay extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final projectConfiguration = ref.watch(
-      projectConfigurationNotifierProvider,
+      projectConfigurationProvider,
     );
 
     final defaultMusic = ref.watch(defaultMusicProvider);
@@ -36,7 +36,6 @@ class ProjectConfigurationDisplay extends ConsumerWidget {
         DefaultMusicErrorDisplay(error: error, stackTrace: stackTrace),
       (AsyncLoading(), _) ||
       (_, AsyncLoading()) => const CircularProgressIndicator(),
-      _ => throw UnimplementedError(),
     };
   }
 }

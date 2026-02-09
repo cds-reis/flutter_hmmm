@@ -20,8 +20,8 @@ class CassetteLoadingAnimation extends HookWidget {
 
 class CassetteLoadingPainter extends CustomPainter {
   static const _pixelSize = 4.0;
-  static const _casseteWidth = 27.0 * _pixelSize;
-  static const _casseteHeight = 16.0 * _pixelSize;
+  static const double _casseteWidth = 27.0 * _pixelSize;
+  static const double _casseteHeight = 16.0 * _pixelSize;
 
   @override
   void paint(Canvas canvas, Size size) {

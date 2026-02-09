@@ -36,7 +36,6 @@ void main() {
         child: const EagerProvidersInitializer(child: MainApp()),
       ),
     );
-    // ignore: require_trailing_commas //
   }, globalTalker.error);
 }
 

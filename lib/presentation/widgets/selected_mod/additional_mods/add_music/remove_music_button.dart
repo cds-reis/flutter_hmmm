@@ -4,7 +4,6 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../../../../../../domain/entities/hotline_miami_mod.dart';
-import '../../../../hooks/use_effect_once.dart';
 import '../../../../providers/repositories_providers.dart';
 import '../../../../providers/selected_mod_provider.dart';
 import '../../../hotline_miami_mods/hotline_miami_mods_display.dart';
@@ -33,10 +32,11 @@ class RemoveMusicButton extends HookConsumerWidget {
       duration: const Duration(seconds: 2),
     );
 
-    useEffectOnce(() {
-      animationController.repeat(reverse: true);
+    useEffect(() {
+      animationController.repeat(reverse: true).ignore();
+
       return null;
-    });
+    }, const []);
 
     final animation = useAnimation(
       ColorTween(

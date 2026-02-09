@@ -15,14 +15,20 @@ class GradientAnimation extends _$GradientAnimation {
     ref
         .watch(sharedPreferencesProvider)
         .getBool(_gradientEnabledKey)
-        .then((value) => state = value ?? true);
+        .then((value) => state = value ?? true)
+        .ignore();
 
     return true;
   }
 
   void _onPressed() {
     final newState = !state;
-    ref.read(sharedPreferencesProvider).setBool(_gradientEnabledKey, newState);
+
+    ref
+        .read(sharedPreferencesProvider)
+        .setBool(_gradientEnabledKey, newState)
+        .ignore();
+
     state = newState;
   }
 }

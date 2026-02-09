@@ -27,7 +27,7 @@ class _ModItemDisplayTextState extends State<ModItemDisplayText>
     _controller = AnimationController(
       duration: const Duration(seconds: 1),
       vsync: this,
-    )..repeat(reverse: true);
+    )..repeat(reverse: true).ignore();
 
     _updateColorAnimation();
   }

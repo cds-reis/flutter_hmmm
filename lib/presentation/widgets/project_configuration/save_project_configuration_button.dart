@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:fpdart/fpdart.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -42,7 +44,9 @@ class SaveProjectConfigurationButton extends ConsumerWidget {
     ].partition((path) => path.$2.state.isRight());
 
     if (invalidPaths.isNotEmpty) {
-      showInvalidPathsDialog(context, invalidPaths.map((e) => e.$1).toList());
+      unawaited(
+        showInvalidPathsDialog(context, invalidPaths.map((e) => e.$1).toList()),
+      );
       return;
     }
 
@@ -59,8 +63,10 @@ class SaveProjectConfigurationButton extends ConsumerWidget {
         .read(talkerProvider)
         .verbose('Project configuration: $projectConfiguration');
 
-    ref
-        .read(projectConfigurationNotifierProvider.notifier)
-        .saveProjectConfiguration(projectConfiguration);
+    unawaited(
+      ref
+          .read(projectConfigurationProvider.notifier)
+          .saveProjectConfiguration(projectConfiguration),
+    );
   }
 }

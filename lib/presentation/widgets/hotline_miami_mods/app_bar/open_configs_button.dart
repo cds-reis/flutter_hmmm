@@ -8,18 +8,20 @@ class OpenConfigsButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return IconButton(
-      onPressed: () {
-        showDialog<void>(
-          context: context,
-          builder: (context) => const ConfigurationDialog(),
-        );
-      },
+      onPressed: () => _onPressed(context),
       icon: Icon(Icons.settings, color: Colors.purpleAccent.shade400),
       style: IconButton.styleFrom(
         shape: RoundedRectangleBorder(
           side: BorderSide(color: Colors.purpleAccent.shade400, width: 4),
         ),
       ),
+    );
+  }
+
+  Future<void> _onPressed(BuildContext context) {
+    return showDialog(
+      context: context,
+      builder: (context) => const ConfigurationDialog(),
     );
   }
 }

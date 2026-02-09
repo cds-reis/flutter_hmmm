@@ -26,10 +26,11 @@ class ModFilesFolderButton extends ConsumerWidget {
 
         final modFilesPath = directory.path;
 
-        final _ = await Process.run('explorer', [
-          modFilesPath,
-          // ignore: require_trailing_commas //
-        ], workingDirectory: modFilesPath);
+        final _ = await Process.run(
+          'explorer',
+          [modFilesPath],
+          workingDirectory: modFilesPath,
+        );
       },
       child: const Text('Mod files folder'),
     );

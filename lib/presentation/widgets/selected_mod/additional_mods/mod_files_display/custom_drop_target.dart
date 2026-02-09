@@ -36,12 +36,11 @@ class CustomDropTarget extends HookConsumerWidget {
 
           useEffect(() {
             if (isHovering.value) {
-              controller.repeat(reverse: true);
+              controller.repeat(reverse: true).ignore();
             } else {
               controller.reset();
             }
             return null;
-            // ignore: require_trailing_commas //
           }, [isHovering.value]);
 
           final animation = Tween<double>(begin: 1, end: 1.2).animate(
@@ -70,7 +69,7 @@ class CustomDropTarget extends HookConsumerWidget {
 
               if (files == null) {
                 if (context.mounted) {
-                  showWrongFileTypeDialog(context);
+                  await showWrongFileTypeDialog(context);
                 }
                 return;
               }

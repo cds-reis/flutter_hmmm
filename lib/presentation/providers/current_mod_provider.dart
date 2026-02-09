@@ -34,7 +34,7 @@ class CurrentMod extends _$CurrentMod {
     state = const AsyncLoading();
 
     final projectConfiguration = await ref.read(
-      projectConfigurationNotifierProvider.future,
+      projectConfigurationProvider.future,
     );
 
     if (projectConfiguration == null) {
@@ -59,7 +59,7 @@ class CurrentMod extends _$CurrentMod {
     state = const AsyncLoading();
 
     final projectConfiguration = await ref.read(
-      projectConfigurationNotifierProvider.future,
+      projectConfigurationProvider.future,
     );
 
     if (projectConfiguration == null) {

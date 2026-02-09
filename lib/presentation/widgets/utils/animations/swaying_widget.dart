@@ -31,7 +31,7 @@ class _SwayingWidgetState extends State<SwayingWidget>
       begin: -widget.angle - widget.angle,
       end: -widget.angle,
     ).animate(CurvedAnimation(parent: _controller, curve: Curves.easeInOut));
-    _controller.repeat(reverse: true);
+    _controller.repeat(reverse: true).ignore();
   }
 
   @override

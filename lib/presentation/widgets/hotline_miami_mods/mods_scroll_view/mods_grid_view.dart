@@ -15,9 +15,10 @@ class ModsGridView extends StatelessWidget {
     return ListView.separated(
       padding: const EdgeInsets.all(16),
       itemCount: (mods.length / 2).ceil(),
-      separatorBuilder: (_, __) => const Gap(16),
+      separatorBuilder: (_, _) => const Gap(16),
       itemBuilder: (_, index) {
         final realIndex = index * 2;
+
         return Row(
           spacing: 24,
           children: [

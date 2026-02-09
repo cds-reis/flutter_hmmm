@@ -54,8 +54,9 @@ class DefaultMusicFilePicker extends ConsumerWidget {
 
   Future<void> _onPressed(WidgetRef ref) async {
     final projectConfiguration = await ref.read(
-      projectConfigurationNotifierProvider.future,
+      projectConfigurationProvider.future,
     );
+
     if (projectConfiguration == null) {
       return;
     }

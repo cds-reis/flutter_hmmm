@@ -30,7 +30,7 @@ class _AnimatedColorTextState extends State<AnimatedColorText>
     super.initState();
     _controller = AnimationController(duration: widget.duration, vsync: this);
     _setupAnimation();
-    _controller.repeat(reverse: true);
+    _controller.repeat(reverse: true).ignore();
   }
 
   void _setupAnimation() {

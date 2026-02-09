@@ -14,7 +14,7 @@ class EditProjectConfigurationDisplay extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final currentProjectConfiguration =
-        ref.watch(projectConfigurationNotifierProvider).requireValue!;
+        ref.watch(projectConfigurationProvider).requireValue!;
 
     final gamePath = useTextEditingControllerWithState(
       transformer: GamePath.parse,

@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
@@ -27,7 +29,7 @@ class CurrentModDisplay extends ConsumerWidget {
           Text('Current mod: ${mod.name}', style: textStyle),
           TextButton(
             onPressed: () {
-              ref.read(currentModProvider.notifier).useDefault();
+              unawaited(ref.read(currentModProvider.notifier).useDefault());
             },
             child: const Text('Clear current mod'),
           ),
@@ -37,7 +39,6 @@ class CurrentModDisplay extends ConsumerWidget {
         'An error happened trying to get the current mod. Please see the logs',
         style: textStyle,
       ),
-      _ => throw UnimplementedError(),
     };
   }
 }

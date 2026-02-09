@@ -1,10 +1,9 @@
-// ignore_for_file: require_trailing_commas //
+import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:gap/gap.dart';
 
-import '../../hooks/use_effect_once.dart';
 import '../favorite_mods/favorite_mods_filter.dart';
 import 'author_or_name_filter.dart';
 import 'mod_type_filter.dart';
@@ -26,9 +25,9 @@ class HotlineMiamiFiltersDisplay extends HookWidget {
 
     useEffect(() {
       if (isExpanded.value) {
-        animationController.forward();
+        unawaited(animationController.forward());
       } else {
-        animationController.reverse();
+        unawaited(animationController.reverse());
       }
 
       return null;
@@ -44,8 +43,8 @@ class HotlineMiamiFiltersDisplay extends HookWidget {
             _ExpandFilterIcon(rotation: rotation),
           ],
         ),
-        expansionAnimationStyle: AnimationStyle(
-          duration: const Duration(milliseconds: 100),
+        expansionAnimationStyle: const AnimationStyle(
+          duration: Duration(milliseconds: 100),
         ),
         maintainState: true,
         showTrailingIcon: false,
@@ -82,10 +81,11 @@ class _ExpandFilterIcon extends HookWidget {
       duration: const Duration(seconds: 3),
     );
 
-    useEffectOnce(() {
-      animationController.repeat(reverse: true);
+    useEffect(() {
+      animationController.repeat(reverse: true).ignore();
+
       return null;
-    });
+    }, const []);
 
     final animation = useAnimation(
       ColorTween(

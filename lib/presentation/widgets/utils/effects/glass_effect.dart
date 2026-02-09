@@ -88,7 +88,7 @@ class GlassPainter extends CustomPainter {
       );
   }
 
-  static final _effectPoisitions = _calculateEffectPositions();
+  static final List<List<bool>> _effectPoisitions = _calculateEffectPositions();
 
   static List<List<bool>> _calculateEffectPositions() {
     final grid = _initialGrid();

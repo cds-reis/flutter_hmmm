@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 
 import 'default_dialog.dart';
 
-void showWrongFileTypeDialog(BuildContext context) {
-  showDialog<void>(
+Future<void> showWrongFileTypeDialog(BuildContext context) {
+  return showDialog(
     context: context,
     builder: (context) {
       return LayoutBuilder(

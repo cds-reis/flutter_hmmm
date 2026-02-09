@@ -22,7 +22,7 @@ class _TextLoadingState extends State<TextLoading>
       vsync: this,
     );
     _dotsAmount = IntTween(begin: 1, end: 3).animate(_controller);
-    _controller.repeat();
+    _controller.repeat().ignore();
   }
 
   @override

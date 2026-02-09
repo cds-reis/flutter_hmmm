@@ -3,7 +3,6 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:gap/gap.dart';
 
 import '../../../domain/entities/hotline_miami_mod.dart';
-import '../../hooks/use_effect_once.dart';
 
 class SelectedModDisplayText extends HookWidget {
   const SelectedModDisplayText({required this.selectedMod, super.key});
@@ -16,11 +15,11 @@ class SelectedModDisplayText extends HookWidget {
       duration: const Duration(seconds: 2),
     );
 
-    useEffectOnce(() {
-      controller.repeat(reverse: true);
+    useEffect(() {
+      controller.repeat(reverse: true).ignore();
 
       return null;
-    });
+    }, const []);
 
     final animation = useAnimation(
       ColorTween(

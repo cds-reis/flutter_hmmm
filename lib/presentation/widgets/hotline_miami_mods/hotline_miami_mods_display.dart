@@ -21,8 +21,7 @@ class HotlineMiamiMods extends _$HotlineMiamiMods {
     state = const AsyncLoading();
     final talker = ref.watch(talkerProvider)
       ..verbose('Building HotlineMiamiMods');
-    final projectConfiguration =
-        ref.watch(projectConfigurationNotifierProvider).value;
+    final projectConfiguration = ref.watch(projectConfigurationProvider).value;
 
     if (projectConfiguration == null) {
       talker.error('Project configuration is null');
@@ -70,7 +69,6 @@ class HotlineMiamiModsDisplay extends ConsumerWidget {
               AsyncLoading() => const SizedBox.expand(
                 child: Center(child: CircularProgressIndicator()),
               ),
-              _ => throw UnimplementedError(),
             },
           ),
         ),

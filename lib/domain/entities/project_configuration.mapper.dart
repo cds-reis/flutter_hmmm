@@ -1,6 +1,8 @@
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
+// dart format off
 // ignore_for_file: type=lint
+// ignore_for_file: invalid_use_of_protected_member
 // ignore_for_file: unused_element, unnecessary_cast, override_on_non_overriding_member
 // ignore_for_file: strict_raw_type, inference_failure_on_untyped_parameter
 
@@ -21,13 +23,19 @@ class ProjectConfigurationMapper extends ClassMapperBase<ProjectConfiguration> {
   final String id = 'ProjectConfiguration';
 
   static GamePath _$gamePath(ProjectConfiguration v) => v.gamePath;
-  static const Field<ProjectConfiguration, GamePath> _f$gamePath =
-      Field('gamePath', _$gamePath, hook: ExistingDirectoryHook());
+  static const Field<ProjectConfiguration, GamePath> _f$gamePath = Field(
+    'gamePath',
+    _$gamePath,
+    hook: ExistingDirectoryHook(),
+  );
   static AdditionalModsPath _$additionalModsPath(ProjectConfiguration v) =>
       v.additionalModsPath;
   static const Field<ProjectConfiguration, AdditionalModsPath>
-      _f$additionalModsPath = Field('additionalModsPath', _$additionalModsPath,
-          hook: ExistingDirectoryHook());
+  _f$additionalModsPath = Field(
+    'additionalModsPath',
+    _$additionalModsPath,
+    hook: ExistingDirectoryHook(),
+  );
 
   @override
   final MappableFields<ProjectConfiguration> fields = const {
@@ -37,8 +45,9 @@ class ProjectConfigurationMapper extends ClassMapperBase<ProjectConfiguration> {
 
   static ProjectConfiguration _instantiate(DecodingData data) {
     return ProjectConfiguration(
-        gamePath: data.dec(_f$gamePath),
-        additionalModsPath: data.dec(_f$additionalModsPath));
+      gamePath: data.dec(_f$gamePath),
+      additionalModsPath: data.dec(_f$additionalModsPath),
+    );
   }
 
   @override
@@ -66,19 +75,24 @@ mixin ProjectConfigurationMappable {
 
   @override
   String toString() {
-    return ProjectConfigurationMapper.ensureInitialized()
-        .stringifyValue(this as ProjectConfiguration);
+    return ProjectConfigurationMapper.ensureInitialized().stringifyValue(
+      this as ProjectConfiguration,
+    );
   }
 
   @override
   bool operator ==(Object other) {
-    return ProjectConfigurationMapper.ensureInitialized()
-        .equalsValue(this as ProjectConfiguration, other);
+    return ProjectConfigurationMapper.ensureInitialized().equalsValue(
+      this as ProjectConfiguration,
+      other,
+    );
   }
 
   @override
   int get hashCode {
-    return ProjectConfigurationMapper.ensureInitialized()
-        .hashValue(this as ProjectConfiguration);
+    return ProjectConfigurationMapper.ensureInitialized().hashValue(
+      this as ProjectConfiguration,
+    );
   }
 }
+

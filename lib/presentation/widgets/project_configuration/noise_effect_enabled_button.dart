@@ -15,7 +15,8 @@ class NoiseEffectEnabled extends _$NoiseEffectEnabled {
     ref
         .watch(sharedPreferencesProvider)
         .getBool(_noiseEffectEnabledKey)
-        .then((value) => state = value ?? true);
+        .then((value) => state = value ?? true)
+        .ignore();
 
     return true;
   }
@@ -25,7 +26,8 @@ class NoiseEffectEnabled extends _$NoiseEffectEnabled {
     state = newState;
     ref
         .read(sharedPreferencesProvider)
-        .setBool(_noiseEffectEnabledKey, newState);
+        .setBool(_noiseEffectEnabledKey, newState)
+        .ignore();
   }
 }
 

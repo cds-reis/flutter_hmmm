@@ -23,11 +23,9 @@ ThemeData buildAppTheme() {
       trackOutlineWidth: WidgetStatePropertyAll(3),
     ),
     fontFamily: 'Retro Computer',
-    dialogTheme: const DialogTheme(
-      data: DialogThemeData(
-        backgroundColor: fillColor,
-        shape: RoundedRectangleBorder(),
-      ),
+    dialogTheme: const DialogThemeData(
+      backgroundColor: fillColor,
+      shape: RoundedRectangleBorder(),
     ),
     chipTheme: const ChipThemeData(shape: RoundedRectangleBorder()),
     inputDecorationTheme: InputDecorationTheme(

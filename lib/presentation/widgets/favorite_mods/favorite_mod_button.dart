@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
@@ -18,9 +20,9 @@ class FavoriteModButton extends ConsumerWidget {
     return IconButton(
       onPressed: () {
         if (isFavorite) {
-          ref.read(favoriteModsProvider.notifier).removeMod(mod.id);
+          unawaited(ref.read(favoriteModsProvider.notifier).removeMod(mod.id));
         } else {
-          ref.read(favoriteModsProvider.notifier).addMod(mod.id);
+          unawaited(ref.read(favoriteModsProvider.notifier).addMod(mod.id));
         }
       },
       color: Colors.pink,

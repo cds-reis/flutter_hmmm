@@ -1,5 +1,3 @@
-// ignore_for_file: require_trailing_commas //
-
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
@@ -101,7 +99,7 @@ class _CustomAnimatedGradientState extends State<CustomAnimatedGradient>
         final enabled = ref.watch(gradientAnimationProvider);
 
         if (enabled && !_controller.isAnimating) {
-          _controller.repeat(reverse: widget.reverse);
+          _controller.repeat(reverse: widget.reverse).ignore();
         } else if (!enabled && _controller.isAnimating) {
           _controller.stop();
         }

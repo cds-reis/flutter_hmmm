@@ -20,7 +20,7 @@ class FavoriteMods extends _$FavoriteMods {
       }
 
       state = favoriteMods.map(ModId.new).toISet();
-    });
+    }).ignore();
 
     return const ISet.empty();
   }

@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
@@ -21,6 +23,6 @@ class UseThisModButton extends ConsumerWidget {
   }
 
   void _onUseThisModPressed(WidgetRef ref) {
-    ref.read(currentModProvider.notifier).setCurrentMod(mod);
+    unawaited(ref.read(currentModProvider.notifier).setCurrentMod(mod));
   }
 }

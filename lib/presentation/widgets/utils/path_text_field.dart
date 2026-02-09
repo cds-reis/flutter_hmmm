@@ -2,8 +2,6 @@ import 'package:file_selector/file_selector.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 
-import '../../hooks/use_effect_once.dart';
-
 class PathTextField extends HookWidget {
   const PathTextField({
     required this.controller,
@@ -22,10 +20,10 @@ class PathTextField extends HookWidget {
       duration: const Duration(seconds: 2),
     );
 
-    useEffectOnce(() {
-      animationController.repeat(reverse: true);
+    useEffect(() {
+      animationController.repeat(reverse: true).ignore();
       return null;
-    });
+    }, const []);
 
     final color = useAnimation(
       ColorTween(
