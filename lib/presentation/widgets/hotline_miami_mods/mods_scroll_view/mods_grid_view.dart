@@ -22,11 +22,11 @@ class ModsGridView extends StatelessWidget {
         return Row(
           spacing: 24,
           children: [
-            Flexible(flex: 5, child: ModItemDisplay(mod: mods[realIndex])),
+            Expanded(flex: 5, child: ModItemDisplay(mod: mods[realIndex])),
             if (realIndex + 1 < mods.length)
-              Flexible(flex: 5, child: ModItemDisplay(mod: mods[realIndex + 1]))
+              Expanded(flex: 5, child: ModItemDisplay(mod: mods[realIndex + 1]))
             else
-              const Flexible(flex: 5, child: SizedBox()),
+              const Expanded(flex: 5, child: SizedBox()),
           ],
         );
       },

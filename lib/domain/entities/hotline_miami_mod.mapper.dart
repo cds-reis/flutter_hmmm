@@ -36,6 +36,11 @@ class HotlineMiamiModMapper extends ClassMapperBase<HotlineMiamiMod> {
     'cover',
     _$cover,
   );
+  static ModScreen? _$screen(HotlineMiamiMod v) => v.screen;
+  static const Field<HotlineMiamiMod, ModScreen> _f$screen = Field(
+    'screen',
+    _$screen,
+  );
   static ModType _$type(HotlineMiamiMod v) => v.type;
   static const Field<HotlineMiamiMod, ModType> _f$type = Field('type', _$type);
   static ModDirectory _$directory(HotlineMiamiMod v) => v.directory;
@@ -71,6 +76,7 @@ class HotlineMiamiModMapper extends ClassMapperBase<HotlineMiamiMod> {
     #name: _f$name,
     #author: _f$author,
     #cover: _f$cover,
+    #screen: _f$screen,
     #type: _f$type,
     #directory: _f$directory,
     #additionalFilesDirectory: _f$additionalFilesDirectory,
@@ -84,6 +90,7 @@ class HotlineMiamiModMapper extends ClassMapperBase<HotlineMiamiMod> {
       name: data.dec(_f$name),
       author: data.dec(_f$author),
       cover: data.dec(_f$cover),
+      screen: data.dec(_f$screen),
       type: data.dec(_f$type),
       directory: data.dec(_f$directory),
       additionalFilesDirectory: data.dec(_f$additionalFilesDirectory),
@@ -133,6 +140,7 @@ abstract class HotlineMiamiModCopyWith<$R, $In extends HotlineMiamiMod, $Out>
     ModName? name,
     ModAuthor? author,
     ModCover? cover,
+    ModScreen? screen,
     ModType? type,
     ModDirectory? directory,
     AdditionalFilesDirectory? additionalFilesDirectory,
@@ -158,6 +166,7 @@ class _HotlineMiamiModCopyWithImpl<$R, $Out>
     ModName? name,
     ModAuthor? author,
     Object? cover = $none,
+    Object? screen = $none,
     ModType? type,
     ModDirectory? directory,
     AdditionalFilesDirectory? additionalFilesDirectory,
@@ -169,6 +178,7 @@ class _HotlineMiamiModCopyWithImpl<$R, $Out>
       if (name != null) #name: name,
       if (author != null) #author: author,
       if (cover != $none) #cover: cover,
+      if (screen != $none) #screen: screen,
       if (type != null) #type: type,
       if (directory != null) #directory: directory,
       if (additionalFilesDirectory != null)
@@ -183,6 +193,7 @@ class _HotlineMiamiModCopyWithImpl<$R, $Out>
     name: data.get(#name, or: $value.name),
     author: data.get(#author, or: $value.author),
     cover: data.get(#cover, or: $value.cover),
+    screen: data.get(#screen, or: $value.screen),
     type: data.get(#type, or: $value.type),
     directory: data.get(#directory, or: $value.directory),
     additionalFilesDirectory: data.get(

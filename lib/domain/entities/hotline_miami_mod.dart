@@ -14,6 +14,7 @@ class HotlineMiamiMod with HotlineMiamiModMappable {
     required this.name,
     required this.author,
     required this.cover,
+    required this.screen,
     required this.type,
     required this.directory,
     required this.additionalFilesDirectory,
@@ -30,6 +31,7 @@ class HotlineMiamiMod with HotlineMiamiModMappable {
   final AdditionalFilesDirectory additionalFilesDirectory;
   final ModMusic? music;
   final ModCover? cover;
+  final ModScreen? screen;
 
   @override
   String toString() {
@@ -40,6 +42,7 @@ class HotlineMiamiMod with HotlineMiamiModMappable {
 extension type const ModId(String value) implements Object {}
 extension type const ModName(String _value) implements String {}
 extension type const ModCover(Uint8List _value) implements Uint8List {}
+extension type const ModScreen(Uint8List _value) implements Uint8List {}
 extension type const ModAuthor(String _value) implements String {}
 extension type const ModDirectory(Directory _value) implements Directory {}
 extension type const AdditionalFilesDirectory(Directory _value)

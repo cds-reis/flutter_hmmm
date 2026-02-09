@@ -58,21 +58,22 @@ class _ModItemDisplayTextState extends State<ModItemDisplayText>
     return AnimatedBuilder(
       animation: _colorAnimation,
       builder: (context, _) {
-        return Expanded(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            spacing: 8,
-            children: [
-              Text(
-                widget.mod.name,
-                style: TextStyle(color: _colorAnimation.value),
-              ),
-              Text(
-                'by ${widget.mod.author}',
-                style: TextStyle(color: _colorAnimation.value),
-              ),
-            ],
-          ),
+        final color = _colorAnimation.value;
+        final mod = widget.mod;
+
+        return Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          spacing: 8,
+          children: [
+            Text(
+              mod.name,
+              style: TextTheme.of(context).titleLarge?.copyWith(color: color),
+            ),
+            Text(
+              'by ${mod.author}',
+              style: TextTheme.of(context).bodyMedium?.copyWith(color: color),
+            ),
+          ],
         );
       },
     );

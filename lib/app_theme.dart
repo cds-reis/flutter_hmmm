@@ -10,7 +10,10 @@ ThemeData buildAppTheme() {
   const textShadow = BoxShadow(offset: Offset(2, 2));
 
   return ThemeData(
-    colorScheme: const ColorScheme.dark(primary: Colors.pinkAccent),
+    colorScheme: const ColorScheme.dark(
+      primary: Colors.pinkAccent,
+      secondary: fillColor,
+    ),
     switchTheme: const SwitchThemeData(
       trackColor: WidgetStateProperty.fromMap({
         WidgetState.selected: Colors.cyan,
@@ -27,7 +30,10 @@ ThemeData buildAppTheme() {
       backgroundColor: fillColor,
       shape: RoundedRectangleBorder(),
     ),
-    chipTheme: const ChipThemeData(shape: RoundedRectangleBorder()),
+    chipTheme: const ChipThemeData(
+      shape: RoundedRectangleBorder(),
+      selectedColor: Colors.tealAccent,
+    ),
     inputDecorationTheme: InputDecorationTheme(
       border: outlineInputBorder,
       alignLabelWithHint: true,
@@ -92,6 +98,42 @@ ThemeData buildAppTheme() {
         backgroundColor: Colors.black,
         shape: const RoundedRectangleBorder(side: BorderSide(width: 4)),
       ),
+    ),
+    checkboxTheme: const CheckboxThemeData(
+      fillColor: WidgetStateColor.fromMap({
+        WidgetState.selected: Colors.yellow,
+        WidgetState.any: Colors.transparent,
+      }),
+      shape: ContinuousRectangleBorder(),
+      checkColor: WidgetStateColor.fromMap({
+        WidgetState.selected: fillColor,
+        WidgetState.any: Colors.yellow,
+      }),
+    ),
+    listTileTheme: const ListTileThemeData(
+      shape: RoundedRectangleBorder(side: BorderSide(width: 2)),
+      tileColor: fillColor,
+    ),
+    tooltipTheme: TooltipThemeData(
+      decoration: BoxDecoration(
+        color: fillColor,
+        borderRadius: BorderRadius.zero,
+        border: Border.all(width: 2),
+      ),
+      preferBelow: false,
+      padding: const EdgeInsets.all(8),
+      textStyle: const TextStyle(
+        color: Colors.yellow,
+        fontFamily: 'Retro Computer',
+        shadows: [textShadow],
+      ),
+    ),
+    dividerTheme: const DividerThemeData(
+      color: Colors.yellow,
+      indent: 0,
+      endIndent: 0,
+      thickness: 10,
+      space: 0,
     ),
   );
 }

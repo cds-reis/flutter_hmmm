@@ -15,18 +15,13 @@ class ModItemDisplay extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final isHovering = useState(false);
+
     final isSelected = ref.watch(selectedModProvider) == mod;
+
     final isActive = isHovering.value || isSelected;
 
-    final borderColor = switch ((isSelected, isHovering.value)) {
-      (true, _) => Colors.blue.shade300,
-      (_, true) => Colors.blue.shade300,
-      _ => Colors.transparent,
-    };
-
     final shadowColor = switch ((isSelected, isHovering.value)) {
-      (true, _) => Colors.black,
-      (_, true) => Colors.black,
+      (true, _) || (_, true) => Theme.of(context).scaffoldBackgroundColor,
       _ => Colors.transparent,
     };
 
@@ -37,19 +32,28 @@ class ModItemDisplay extends HookConsumerWidget {
       onHover: (value) => isHovering.value = value,
       child: DecoratedBox(
         decoration: BoxDecoration(
-          border: Border.all(width: 4, color: borderColor),
-          boxShadow: [BoxShadow(color: shadowColor, spreadRadius: 6)],
+          border: Border.all(
+            width: 4,
+            color: shadowColor,
+            strokeAlign: BorderSide.strokeAlignOutside,
+          ),
         ),
         child: Padding(
-          padding: const EdgeInsets.all(16),
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisSize: MainAxisSize.min,
-            spacing: 16,
-            children: [
-              ModItemDisplayImage(mod: mod, opacity: isActive ? 1 : .4),
-              ModItemDisplayText(mod: mod, active: isActive),
-            ],
+          padding: const EdgeInsets.all(2),
+          child: ColoredBox(
+            color: shadowColor,
+            child: Padding(
+              padding: const EdgeInsets.all(16),
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisSize: MainAxisSize.min,
+                spacing: 16,
+                children: [
+                  ModItemDisplayImage(mod: mod, opacity: isActive ? 1 : .4),
+                  ModItemDisplayText(mod: mod, active: isActive),
+                ],
+              ),
+            ),
           ),
         ),
       ),

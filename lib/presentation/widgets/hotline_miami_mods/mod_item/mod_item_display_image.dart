@@ -30,6 +30,8 @@ class ModItemDisplayImage extends StatelessWidget {
               mod.cover ?? Uint8List(0),
               fit: BoxFit.fill,
               filterQuality: FilterQuality.high,
+              isAntiAlias: true,
+              gaplessPlayback: true,
             ),
           ),
         ),

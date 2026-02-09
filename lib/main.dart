@@ -12,31 +12,34 @@ import 'presentation/providers/global_providers.dart';
 import 'presentation/widgets/project_configuration/project_configuration_display.dart';
 
 void main() {
-  runZonedGuarded(() {
-    LeakTracking.start(
-      config: LeakTrackingConfig(
-        onLeaks: (leakSummary) => globalTalker.debug(leakSummary.toMessage()),
-      ),
-    );
+  runZonedGuarded(
+    () {
+      LeakTracking.start(
+        config: LeakTrackingConfig(
+          onLeaks: (leakSummary) => globalTalker.debug(leakSummary.toMessage()),
+        ),
+      );
 
-    FlutterMemoryAllocations.instance.addListener(
-      (event) => LeakTracking.dispatchObjectEvent(event.toMap()),
-    );
+      FlutterMemoryAllocations.instance.addListener(
+        (event) => LeakTracking.dispatchObjectEvent(event.toMap()),
+      );
 
-    runApp(
-      ProviderScope(
-        observers: [
-          TalkerRiverpodObserver(
-            talker: globalTalker,
-            settings: const TalkerRiverpodLoggerSettings(
-              printProviderDisposed: true,
+      runApp(
+        ProviderScope(
+          observers: [
+            TalkerRiverpodObserver(
+              talker: globalTalker,
+              settings: const TalkerRiverpodLoggerSettings(
+                printProviderDisposed: true,
+              ),
             ),
-          ),
-        ],
-        child: const EagerProvidersInitializer(child: MainApp()),
-      ),
-    );
-  }, globalTalker.error);
+          ],
+          child: const EagerProvidersInitializer(child: MainApp()),
+        ),
+      );
+    },
+    globalTalker.error,
+  );
 }
 
 class MainApp extends StatelessWidget {
@@ -45,6 +48,7 @@ class MainApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      title: 'Hotline Miami Mods Manager',
       theme: buildAppTheme(),
       home: const Scaffold(body: Center(child: ProjectConfigurationDisplay())),
     );

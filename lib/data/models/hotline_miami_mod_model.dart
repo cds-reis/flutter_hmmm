@@ -11,6 +11,7 @@ class HotlineMiamiModModel extends HotlineMiamiMod {
     required super.name,
     required super.author,
     required super.cover,
+    required super.screen,
     required super.type,
     required super.directory,
     required super.additionalFilesDirectory,
@@ -38,12 +39,14 @@ class HotlineMiamiModModel extends HotlineMiamiMod {
         await File(p.join(directory.path, 'campaign.cpg')).readAsLines();
     final [name, author] = campaign.take(2).toList();
     final cover = await _getCover(directory, 'campaign.png');
+    final screen = await _getScreen(directory);
 
     return HotlineMiamiModModel(
       id: _getId(directory),
       name: ModName(name),
       author: ModAuthor(author),
       cover: cover,
+      screen: screen,
       type: ModType.campaign,
       directory: ModDirectory(directory),
       additionalFilesDirectory: AdditionalFilesDirectory(Directory('')),
@@ -53,15 +56,16 @@ class HotlineMiamiModModel extends HotlineMiamiMod {
   static Future<HotlineMiamiModModel> _parseLevel(Directory directory) async {
     final level = File(p.join(directory.path, 'level.hlm'));
     final levelContent = await level.readAsLines();
-    final name = ModName(levelContent.first);
-    final author = ModAuthor(levelContent[2]);
+    final [name, _, author] = levelContent.take(3).toList();
     final cover = await _getCover(directory, 'level.png');
+    final screen = await _getScreen(directory);
 
     return HotlineMiamiModModel(
       id: _getId(directory),
-      name: name,
-      author: author,
+      name: ModName(name),
+      author: ModAuthor(author),
       cover: cover,
+      screen: screen,
       type: ModType.level,
       directory: ModDirectory(directory),
       additionalFilesDirectory: AdditionalFilesDirectory(Directory('')),
@@ -78,5 +82,12 @@ class HotlineMiamiModModel extends HotlineMiamiMod {
       File(p.join(directory.path, fileName)),
       (file) => file.existsSync(),
     ).map((file) => file.readAsBytes().then(ModCover.new)).toNullable();
+  }
+
+  static Future<ModScreen?> _getScreen(Directory directory) async {
+    return Option.fromPredicate(
+      File(p.join(directory.path, 'screen.png')),
+      (file) => file.existsSync(),
+    ).map((file) => file.readAsBytes().then(ModScreen.new)).toNullable();
   }
 }
