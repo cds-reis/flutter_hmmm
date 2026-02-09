@@ -22,10 +22,13 @@ class SelectedModDisplayText extends HookWidget {
     }, const []);
 
     final animation = useAnimation(
-      ColorTween(
-        begin: Colors.pink,
-        end: Colors.pink.shade200,
-      ).animate(controller),
+      useMemoized(
+        () => ColorTween(
+          begin: Colors.pink,
+          end: Colors.pink.shade200,
+        ).animate(controller),
+        [controller],
+      ),
     );
 
     return Column(

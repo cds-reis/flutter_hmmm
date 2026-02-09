@@ -129,7 +129,7 @@ ThemeData buildAppTheme() {
       ),
     ),
     dividerTheme: const DividerThemeData(
-      color: Colors.yellow,
+      color: Colors.deepPurpleAccent,
       indent: 0,
       endIndent: 0,
       thickness: 10,

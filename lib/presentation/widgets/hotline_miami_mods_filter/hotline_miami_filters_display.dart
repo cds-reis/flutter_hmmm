@@ -18,10 +18,13 @@ class HotlineMiamiFiltersDisplay extends HookWidget {
       duration: const Duration(milliseconds: 100),
     );
 
-    final rotation = Tween<double>(
-      begin: 0,
-      end: .5,
-    ).animate(animationController);
+    final rotation = useMemoized(
+      () => Tween<double>(
+        begin: 0,
+        end: .5,
+      ).animate(animationController),
+      [animationController],
+    );
 
     useEffect(() {
       if (isExpanded.value) {
@@ -34,7 +37,9 @@ class HotlineMiamiFiltersDisplay extends HookWidget {
     }, [isExpanded.value]);
 
     return Theme(
-      data: Theme.of(context).copyWith(dividerColor: Colors.transparent),
+      data: Theme.of(context).copyWith(
+        dividerTheme: const DividerThemeData(color: Colors.transparent),
+      ),
       child: ExpansionTile(
         title: Row(
           spacing: 16,
@@ -88,10 +93,12 @@ class _ExpandFilterIcon extends HookWidget {
     }, const []);
 
     final animation = useAnimation(
-      ColorTween(
-        begin: Colors.lightBlue,
-        end: Colors.blue.shade900,
-      ).animate(animationController),
+      useMemoized(
+        () => ColorTween(
+          begin: Colors.lightBlue,
+          end: Colors.blue.shade900,
+        ).animate(animationController),
+      ),
     );
 
     return RotationTransition(

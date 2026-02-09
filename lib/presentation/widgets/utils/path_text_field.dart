@@ -26,10 +26,13 @@ class PathTextField extends HookWidget {
     }, const []);
 
     final color = useAnimation(
-      ColorTween(
-        begin: Colors.white,
-        end: Theme.of(context).inputDecorationTheme.labelStyle?.color,
-      ).animate(animationController),
+      useMemoized(
+        () => ColorTween(
+          begin: Colors.white,
+          end: Theme.of(context).inputDecorationTheme.labelStyle?.color,
+        ).animate(animationController),
+        [animationController],
+      ),
     );
 
     return TextField(

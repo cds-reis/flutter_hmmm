@@ -21,22 +21,14 @@ class NoiseEffect extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return Stack(
-      children: [
-        child,
-        Positioned.fill(
-          child: IgnorePointer(
-            child: CustomPaint(
-              painter: NoisePainter(
-                color: color,
-                density: density,
-                opacity: opacity,
-                enabled: ref.watch(noiseEffectEnabledProvider),
-              ),
-            ),
-          ),
-        ),
-      ],
+    return CustomPaint(
+      foregroundPainter: NoisePainter(
+        color: color,
+        density: density,
+        opacity: opacity,
+        enabled: ref.watch(noiseEffectEnabledProvider),
+      ),
+      child: child,
     );
   }
 }

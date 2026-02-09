@@ -22,88 +22,83 @@ class SelectedModDisplay extends ConsumerWidget {
     );
 
     if (!isModSelected) {
-      return const NoiseEffect(
-        child: SizedBox.expand(
-          child: Padding(
-            padding: EdgeInsets.all(32),
-            child: CurrentModDisplay(),
-          ),
+      return const SizedBox.expand(
+        child: Padding(
+          padding: EdgeInsets.all(32),
+          child: CurrentModDisplay(),
         ),
       );
     }
 
-    return NoiseEffect(
-      child: SizedBox.expand(
-        child: CustomScrollView(
-          slivers: [
-            SliverPadding(
-              padding: const EdgeInsets.all(32),
-              sliver: SliverList.list(
-                children: [
-                  const CurrentModDisplay(),
-                  const Gap(16),
-                  CustomAnimatedGradient(
-                    gradientSteps: const [
-                      (begin: Colors.indigo, end: Colors.purple),
-                      (
-                        begin: Colors.indigoAccent,
-                        end: Colors.deepPurpleAccent,
-                      ),
-                      (begin: Colors.cyan, end: Colors.pink),
-                    ],
+    return SizedBox.expand(
+      child: CustomScrollView(
+        slivers: [
+          SliverPadding(
+            padding: const EdgeInsets.all(32),
+            sliver: SliverList.list(
+              children: [
+                const CurrentModDisplay(),
+                const Gap(16),
+                CustomAnimatedGradient(
+                  gradientSteps: const [
+                    (begin: Colors.indigo, end: Colors.purple),
+                    (
+                      begin: Colors.indigoAccent,
+                      end: Colors.deepPurpleAccent,
+                    ),
+                    (begin: Colors.cyan, end: Colors.pink),
+                  ],
 
-                    duration: const Duration(seconds: 6),
-                    child: NoiseEffect(
-                      child: Padding(
-                        padding: const EdgeInsets.all(32),
-                        child: Center(
-                          child: Consumer(
-                            builder: (context, ref, child) {
-                              final selectedMod =
-                                  ref.watch(selectedModProvider)!;
+                  duration: const Duration(seconds: 6),
+                  child: NoiseEffect(
+                    child: Padding(
+                      padding: const EdgeInsets.all(32),
+                      child: Center(
+                        child: Consumer(
+                          builder: (context, ref, child) {
+                            final selectedMod = ref.watch(selectedModProvider)!;
 
-                              return Column(
-                                spacing: 40,
-                                children: [
-                                  SelectedModImage(mod: selectedMod),
-                                  SelectedModDisplayText(
-                                    selectedMod: selectedMod,
-                                  ),
-                                ],
-                              );
-                            },
-                          ),
+                            return Column(
+                              spacing: 40,
+                              children: [
+                                SelectedModImage(mod: selectedMod),
+                                SelectedModDisplayText(
+                                  selectedMod: selectedMod,
+                                ),
+                              ],
+                            );
+                          },
                         ),
                       ),
                     ),
                   ),
-                  const Gap(16),
-                  Consumer(
-                    builder: (context, ref, child) {
-                      final selectedMod = ref.watch(selectedModProvider)!;
+                ),
+                const Gap(16),
+                Consumer(
+                  builder: (context, ref, child) {
+                    final selectedMod = ref.watch(selectedModProvider)!;
 
-                      return Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          UseThisModButton(mod: selectedMod),
-                          FavoriteModButton(mod: selectedMod),
-                        ],
-                      );
-                    },
-                  ),
-                  const Gap(16),
-                  Consumer(
-                    builder: (_, ref, _) {
-                      return AdditionalModsDisplay(
-                        mod: ref.watch(selectedModProvider)!,
-                      );
-                    },
-                  ),
-                ],
-              ),
+                    return Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        UseThisModButton(mod: selectedMod),
+                        FavoriteModButton(mod: selectedMod),
+                      ],
+                    );
+                  },
+                ),
+                const Gap(16),
+                Consumer(
+                  builder: (_, ref, _) {
+                    return AdditionalModsDisplay(
+                      mod: ref.watch(selectedModProvider)!,
+                    );
+                  },
+                ),
+              ],
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

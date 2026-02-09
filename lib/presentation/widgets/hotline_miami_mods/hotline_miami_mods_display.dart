@@ -8,7 +8,6 @@ import '../../providers/global_providers.dart';
 import '../../providers/project_configuration_provider.dart';
 import '../../providers/repositories_providers.dart';
 import '../selected_mod/selected_mod_display.dart';
-import '../utils/effects/noise_effect.dart';
 import 'mods_scroll_view/mods_scroll_view.dart';
 import 'no_mods_found.dart';
 
@@ -57,23 +56,19 @@ class HotlineMiamiModsDisplay extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return Row(
       children: [
-        Flexible(
+        Expanded(
           flex: 60,
-          child: NoiseEffect(
-            color: Colors.black,
-            opacity: 0.3,
-            child: switch (ref.watch(hotlineMiamiModsProvider)) {
-              AsyncData(value: IList(isEmpty: true)) => const NoModsFound(),
-              AsyncData(value: final mods) => ModsScrollView(mods: mods),
-              AsyncError(:final error) => Text(error.toString()),
-              AsyncLoading() => const SizedBox.expand(
-                child: Center(child: CircularProgressIndicator()),
-              ),
-            },
-          ),
+          child: switch (ref.watch(hotlineMiamiModsProvider)) {
+            AsyncData(value: IList(isEmpty: true)) => const NoModsFound(),
+            AsyncData(value: final mods) => ModsScrollView(mods: mods),
+            AsyncError(:final error) => Text(error.toString()),
+            AsyncLoading() => const SizedBox.expand(
+              child: Center(child: CircularProgressIndicator()),
+            ),
+          },
         ),
-        const Expanded(child: NoiseEffect(child: VerticalDivider())),
-        const Expanded(flex: 35, child: SelectedModDisplay()),
+        const VerticalDivider(),
+        const Expanded(flex: 40, child: SelectedModDisplay()),
       ],
     );
   }

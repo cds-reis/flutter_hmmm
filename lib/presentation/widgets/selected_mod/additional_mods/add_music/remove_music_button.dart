@@ -39,16 +39,17 @@ class RemoveMusicButton extends HookConsumerWidget {
     }, const []);
 
     final animation = useAnimation(
-      ColorTween(
-        begin: Colors.red.shade400,
-        end: Colors.red.shade900,
-      ).animate(animationController),
+      useMemoized(
+        () => ColorTween(
+          begin: Colors.red.shade400,
+          end: Colors.red.shade900,
+        ).animate(animationController),
+        [animationController],
+      ),
     );
 
     return IconButton(
-      onPressed: () {
-        ref.read(removeMusicProvider(mod));
-      },
+      onPressed: () => ref.read(removeMusicProvider(mod)),
       color: animation,
       icon: const Icon(Icons.delete_forever_sharp),
       style: IconButton.styleFrom(

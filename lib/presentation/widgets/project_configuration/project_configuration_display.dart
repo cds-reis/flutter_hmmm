@@ -8,6 +8,7 @@ import '../../providers/project_configuration_provider.dart';
 import '../default_music/default_music_error_display.dart';
 import '../default_music/default_music_file_picker.dart';
 import '../hotline_miami_mods/hotline_miami_mods_display.dart';
+import '../utils/effects/noise_effect.dart';
 import 'create_project_configuration_display.dart';
 import 'project_configuration_error_display.dart';
 
@@ -22,20 +23,26 @@ class ProjectConfigurationDisplay extends ConsumerWidget {
 
     final defaultMusic = ref.watch(defaultMusicProvider);
 
-    return switch ((projectConfiguration, defaultMusic)) {
-      (AsyncData(value: null), _) => const CreateProjectConfigurationDisplay(),
-      (_, AsyncData(value: null)) => const DefaultMusicFilePicker(),
-      (
-        AsyncData(value: ProjectConfiguration()),
-        AsyncData(value: DefaultHotlineMiamiMusic()),
-      ) =>
-        const HotlineMiamiModsDisplay(),
-      (AsyncError(:final error, :final stackTrace), _) =>
-        ProjectConfigurationErrorDisplay(error: error, stackTrace: stackTrace),
-      (_, AsyncError(:final error, :final stackTrace)) =>
-        DefaultMusicErrorDisplay(error: error, stackTrace: stackTrace),
-      (AsyncLoading(), _) ||
-      (_, AsyncLoading()) => const CircularProgressIndicator(),
-    };
+    return NoiseEffect(
+      child: switch ((projectConfiguration, defaultMusic)) {
+        (AsyncData(value: null), _) =>
+          const CreateProjectConfigurationDisplay(),
+        (_, AsyncData(value: null)) => const DefaultMusicFilePicker(),
+        (
+          AsyncData(value: ProjectConfiguration()),
+          AsyncData(value: DefaultHotlineMiamiMusic()),
+        ) =>
+          const HotlineMiamiModsDisplay(),
+        (AsyncError(:final error, :final stackTrace), _) =>
+          ProjectConfigurationErrorDisplay(
+            error: error,
+            stackTrace: stackTrace,
+          ),
+        (_, AsyncError(:final error, :final stackTrace)) =>
+          DefaultMusicErrorDisplay(error: error, stackTrace: stackTrace),
+        (AsyncLoading(), _) ||
+        (_, AsyncLoading()) => const CircularProgressIndicator(),
+      },
+    );
   }
 }
